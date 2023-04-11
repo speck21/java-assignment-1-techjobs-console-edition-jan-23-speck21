@@ -5,6 +5,8 @@ import org.apache.commons.csv.CSVRecord;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.sql.Array;
+import java.sql.SQLOutput;
 import java.util.*;
 
 /**
@@ -51,7 +53,9 @@ public class JobData {
         loadData();
 
         // Bonus mission; normal version returns allJobs
-        return new ArrayList<>(allJobs);
+        ArrayList<HashMap<String,String>> copy = new ArrayList<>(allJobs);
+
+        return copy;
     }
 
     /**
@@ -72,12 +76,12 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> job : allJobs) {
 
-            String aValue = row.get(column);
+            String category = job.get(column);
 
-            if (aValue.contains(value)) {
-                jobs.add(row);
+            if (category.toLowerCase().contains(value.toLowerCase())) {
+                jobs.add(job);
             }
         }
 
@@ -99,7 +103,7 @@ public class JobData {
             //cycles through array of job listings
             for(Map.Entry<String,String> key: job.entrySet()){
                 //cycles through each listings categories
-                if(key.getValue().contains(value)){
+                if(key.getValue().toLowerCase().contains(value.toLowerCase())){
                     if(jobListByValue.contains(job)){
                         continue;
                     }else{
