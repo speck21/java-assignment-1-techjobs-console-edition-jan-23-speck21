@@ -34,11 +34,11 @@ public class TechJobs {
 
             if (actionChoice == null) {
                 break;
-            } else if (actionChoice.equals("list")) {
+            } else if (actionChoice.equals("list")) {//choice is list
 
                 String columnChoice = getUserSelection("List", columnChoices);
 
-                if (columnChoice.equals("all")) {
+                if (columnChoice.equals("all")) {//lists all
                     printJobs(JobData.findAll());
                 } else {
 
@@ -118,8 +118,18 @@ public class TechJobs {
     }
 
     // Print a list of jobs
+    // args -> (JobDate.findByColumnAndValue(searchField, searchTerm)
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
-
-        System.out.println("printJobs is not implemented yet");
+        if(someJobs.size() < 1) {
+            System.out.println("No Results");
+        }else{
+            for (HashMap<String, String> job : someJobs) {
+                System.out.println("*****");
+                for (Map.Entry<String, String> key : job.entrySet()) {
+                    System.out.println(key.getKey() + ": " + key.getValue());
+                }
+                System.out.println("*****\n");
+            }
+        }
     }
 }
